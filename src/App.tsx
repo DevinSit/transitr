@@ -1,5 +1,5 @@
 import React from "react";
-import AppContainer from "scenes";
+import AppContainer from "scenes/";
 
 const App = () => {
     return (

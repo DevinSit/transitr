@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {BACKGROUND_COLOR} from "styles/constants";
+import {BACKGROUND_COLOR} from "./colors";
 
 const sceneStyles = StyleSheet.create({
     defaultStyle: {

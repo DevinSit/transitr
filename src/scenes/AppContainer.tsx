@@ -1,7 +1,7 @@
 import React from "react";
 import {createAppContainer} from "react-navigation";
 import {createStackNavigator} from "react-navigation-stack";
-import {PRIMARY_COLOR, LIGHT_COLOR} from "styles";
+import {PRIMARY_COLOR, LIGHT_COLOR} from "styles/colors";
 import Home from "./Home";
 
 export const SCENES = {
