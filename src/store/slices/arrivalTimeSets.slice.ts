@@ -1,8 +1,8 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {crudSliceReducerFactory} from "store/utils";
+import {createCustomSlice, crudSliceReducerFactory} from "store/utils";
+import {State} from "store/utils/types";
 import mounts from "store/mountpoints";
 
-export const arrivalTimeSetsSlice = createSlice({
+export const arrivalTimeSetsSlice = createCustomSlice({
     name: mounts.arrivalTimeSets,
     initialState: {},
     reducers: {
@@ -12,7 +12,7 @@ export const arrivalTimeSetsSlice = createSlice({
 
 /* Selectors */
 
-const getArrivalTimeSets = (state) => state[mounts.arrivalTimeSets];
+const getArrivalTimeSets = (state: State) => state[mounts.arrivalTimeSets];
 
 arrivalTimeSetsSlice.selectors = {
     getArrivalTimeSets

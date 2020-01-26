@@ -1,8 +1,8 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {crudSliceReducerFactory} from "store/utils";
+import {createCustomSlice, crudSliceReducerFactory} from "store/utils";
+import {State} from "store/utils/types";
 import mounts from "store/mountpoints";
 
-export const routesSlice = createSlice({
+export const routesSlice = createCustomSlice({
     name: mounts.routes,
     initialState: {},
     reducers: {
@@ -12,7 +12,7 @@ export const routesSlice = createSlice({
 
 /* Selectors */
 
-const getRoutes = (state) => state[mounts.routes];
+const getRoutes = (state: State) => state[mounts.routes];
 
 routesSlice.selectors = {
     getRoutes

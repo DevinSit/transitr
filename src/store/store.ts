@@ -1,4 +1,3 @@
-import {routerMiddleware} from "connected-react-router";
 import {configureStore} from "@reduxjs/toolkit";
 import {persistStore, persistReducer} from "redux-persist";
 import AsyncStorage from "@react-native-community/async-storage";
