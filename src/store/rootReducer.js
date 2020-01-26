@@ -4,7 +4,7 @@ import * as slices from "./slices";
 
 const createRootReducer = () => {
     const reducers = Object.keys(slices).reduce((acc, key) => {
-        const {slice: mountpoint, reducer} = slices[key];
+        const {name: mountpoint, reducer} = slices[key];
         acc[mountpoint] = reducer;
 
         return acc;
