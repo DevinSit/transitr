@@ -1,0 +1,9 @@
+export const PRIMARY_COLOR = "#F44336";
+export const ACCENT_COLOR = "#009688";
+export const BACKGROUND_COLOR = "#E8E8E8";
+export const LIGHT_COLOR = "#FFFFFF";
+export const DARK_COLOR = "#212121";
+export const GREY_COLOR = "#757575";
+export const GREY_LIGHT_COLOR = "#BDBDBD";
+export const ICON_ON_WHITE_COLOR = "#838383";
+export const DIALOG_OVERLAY_COLOR = "#00000080";
