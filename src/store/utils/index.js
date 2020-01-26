@@ -1,0 +1,1 @@
+export {crudSliceReducerFactory} from "./reducerFactories";
