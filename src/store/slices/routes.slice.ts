@@ -9,3 +9,11 @@ export const routesSlice = createSlice({
         ...crudSliceReducerFactory("Route")
     }
 });
+
+/* Selectors */
+
+const getRoutes = (state) => state[mounts.routes];
+
+routesSlice.selectors = {
+    getRoutes
+};

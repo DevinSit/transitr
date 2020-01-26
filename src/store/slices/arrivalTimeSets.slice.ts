@@ -9,3 +9,11 @@ export const arrivalTimeSetsSlice = createSlice({
         ...crudSliceReducerFactory("ArrivalTimeSet")
     }
 });
+
+/* Selectors */
+
+const getArrivalTimeSets = (state) => state[mounts.arrivalTimeSets];
+
+arrivalTimeSetsSlice.selectors = {
+    getArrivalTimeSets
+};
