@@ -3,6 +3,7 @@ import ArrivalTime from "./ArrivalTime";
 
 interface Props {
     id: string,
+    routeId: string,
     message: string,
     created: Date,
     arrivalTimes: Array<ArrivalTime>
@@ -10,14 +11,16 @@ interface Props {
 
 class ArrivalTimeSet {
     id: string;
+    routeId: string;
     message: string;
     created: Date;
     arrivalTimes: Array<ArrivalTime>;
 
     static NO_TIMES_MESSAGE = "No upcoming arrival times";
 
-    constructor({id, message, created, arrivalTimes}: Props = {}) {
+    constructor({id, routeId, message, created, arrivalTimes}: Props = {}) {
         this.id = id || uuidv4();
+        this.routeId = routeId;
         this.message = message || "";
         this.created = created || new Date();
         this.arrivalTimes = arrivalTimes || [];

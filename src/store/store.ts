@@ -13,13 +13,32 @@ const persistConfig = {
     storage: AsyncStorage
 };
 
+const mockArrivalTime1 = {id: "1", time: "1:00", arrivingSoon: false, arrivalTimeSetId: "1"};
+const mockArrivalTime2 = {id: "2", time: "2:00", arrivingSoon: false, arrivalTimeSetId: "1"};
+const mockArrivalTime3 = {id: "3", time: "3:00", arrivingSoon: false, arrivalTimeSetId: "1"};
+const mockArrivalTimeSet = {id: "1", message: "", created: new Date(), routeId: "1"};
+
+const mockRoute = {id: "1", busNumber: "231", busStop: "Blair", smsTextCode: "Blair 231"};
+
 export default () => {
     const reducer = createRootReducer();
 
     const sagaMiddleware = createSagaMiddleware();
     const middleware = [sagaMiddleware];
 
-    const preloadedState = {};
+    const preloadedState = {
+        [mounts.arrivalTimes]: {
+            1: mockArrivalTime1,
+            2: mockArrivalTime2,
+            3: mockArrivalTime3
+        },
+        [mounts.arrivalTimeSets]: {
+            1: mockArrivalTimeSet
+        },
+        [mounts.routes]: {
+            1: mockRoute
+        }
+    };
 
     const store = configureStore({
         reducer: persistReducer(persistConfig, reducer),
