@@ -4,6 +4,7 @@ import ArrivalTime from "./ArrivalTime";
 
 interface Props {
     id: string,
+    arrivalTimeSetIds: Array<string>,
     busNumber: string,
     busStop: string,
     smsTextCode: string,
@@ -13,22 +14,27 @@ interface Props {
 
 class Route {
     id: string;
+    arrivalTimeSetIds: Array<string>;
     busNumber: string;
     busStop: string;
     smsTextCode: string;
     lastUpdated: Date;
     arrivalTimeSets: Array<ArrivalTimeSet>;
 
-    constructor({id, busNumber, busStop, smsTextCode, lastUpdated, arrivalTimeSets}: Props = {}) {
+    constructor({id, arrivalTimeSetIds, busNumber, busStop, smsTextCode, lastUpdated, arrivalTimeSets}: Props = {}) {
         this.id = id || uuidv4();
+        this.arrivalTimeSetIds = arrivalTimeSetIds || [];
+
         this.busNumber = busNumber || "";
         this.busStop = busStop || "";
         this.smsTextCode = smsTextCode || "";
         this.lastUpdated = lastUpdated || new Date();
+
+        // Derived properties
         this.arrivalTimeSets = arrivalTimeSets || [];
     }
 
-    get latestArrivalTimes(): ?Array<ArrivalTime> {
+    get latestArrivalTimes(): Array<ArrivalTime> {
         const length = this.arrivalTimeSets.length;
         return (length === 0) ? [] : this.arrivalTimeSets[length - 1].arrivalTimes;
     }
@@ -40,6 +46,25 @@ class Route {
 
     get busNumberInt() {
         return parseInt(this.busNumber.split(" ")[0]);
+    }
+
+    mergeWithArrivalTimeSets(arrivalTimeSetsById) {
+        this.arrivalTimeSets = this.arrivalTimeSetIds.reduce((acc, id) => (
+            (id in arrivalTimeSetsById) ? [...acc, new ArrivalTimeSet(arrivalTimeSetsById[id])] : acc
+        ), []);
+    }
+
+    static populateRoute(arrivalTimeSetsById) {
+        return (routeData) => {
+            if (routeData) {
+                const route = new Route(routeData);
+                route.mergeWithArrivalTimeSets(arrivalTimeSetsById);
+
+                return route;
+            } else {
+                return null;
+            }
+        }
     }
 }
 
