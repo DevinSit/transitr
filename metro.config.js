@@ -13,6 +13,7 @@ module.exports = {
             src: path.resolve(__dirname, "src"),
             components: path.resolve(__dirname, "src", "components"),
             hooks: path.resolve(__dirname, "src", "hooks"),
+            models: path.resolve(__dirname, "src", "models"),
             scenes: path.resolve(__dirname, "src", "scenes"),
             store: path.resolve(__dirname, "src", "store"),
             styles: path.resolve(__dirname, "src", "styles"),
