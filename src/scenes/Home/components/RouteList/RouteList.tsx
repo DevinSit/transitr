@@ -2,33 +2,12 @@ import React, {useMemo} from "react";
 import {ScrollView, StyleSheet, Text, View} from "react-native";
 import {DARK_COLOR} from "styles/colors";
 import {DEFAULT_SPACING} from "styles/dimens";
-import RouteRow from "./RouteRow";
-
-const mockRoutes = [
-    {
-        id: "1",
-        busNumber: "231",
-        busStop: "Blair",
-        smsTextCode: "Blair 231"
-    },
-    {
-        id: "2",
-        busNumber: "231",
-        busStop: "Blair",
-        smsTextCode: "Blair 231"
-    },
-    {
-        id: "3",
-        busNumber: "231",
-        busStop: "Blair",
-        smsTextCode: "Blair 231"
-    }
-];
-
+import {RouteRow} from "./components";
+import connect from "./connect";
 
 const computeRowStyle = (isLastRow: boolean) => isLastRow ? [styles.routeRow, styles.routeRow__last] : styles.routeRow;
 
-const RouteList = ({routes = mockRoutes}) => {
+const RouteList = ({routes = []}) => {
     const routeRows = useMemo(() => routes.map((route, index) => (
         <RouteRow
             key={route.id}
@@ -66,4 +45,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default RouteList;
+export default connect(RouteList);
