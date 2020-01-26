@@ -34,17 +34,17 @@ class Route {
         this.arrivalTimeSets = arrivalTimeSets || [];
     }
 
-    get latestArrivalTimes(): Array<ArrivalTime> {
+    getLatestArrivalTimes(): Array<ArrivalTime> {
         const length = this.arrivalTimeSets.length;
         return (length === 0) ? [] : this.arrivalTimeSets[length - 1].arrivalTimes;
     }
 
-    get latestArrivalMessage(): string {
+    getLatestArrivalMessage(): string {
         const length = this.arrivalTimeSets.length;
         return (length === 0) ? "" : this.arrivalTimeSets[length - 1].message;
     }
 
-    get busNumberInt() {
+    getBusNumberInt() {
         return parseInt(this.busNumber.split(" ")[0]);
     }
 

@@ -12,7 +12,7 @@ const RouteList = ({routes = []}) => {
         <RouteRow
             key={route.id}
             style={computeRowStyle(index === routes.length - 1)}
-            route={route}
+            id={route.id}
         />
     )), routes);
 

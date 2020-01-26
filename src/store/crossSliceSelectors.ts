@@ -2,6 +2,8 @@ import {createSelector} from "@reduxjs/toolkit";
 import {ArrivalTime, ArrivalTimeSet, Route} from "models/";
 import {arrivalTimesSlice, arrivalTimeSetsSlice, routesSlice} from "./slices";
 
+/* Cross-slice Selectors */
+
 const getArrivalTimeSetsById = createSelector(
     [
         arrivalTimesSlice.selectors.getArrivalTimes,
@@ -26,8 +28,11 @@ const getRoutesById = createSelector(
 
 const getRoutes = createSelector([getRoutesById], (routesById) => Object.values(routesById));
 
+const getRoute = (id) => createSelector([getRoutesById], (byId) => byId[id]);
+
 export const crossSliceSelectors = {
     getArrivalTimeSetsById,
     getRoutesById,
-    getRoutes
+    getRoutes,
+    getRoute
 };

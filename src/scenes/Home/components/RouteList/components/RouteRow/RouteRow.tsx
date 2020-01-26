@@ -4,12 +4,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import {DARK_COLOR, LIGHT_COLOR, ICON_ON_WHITE_COLOR} from "styles/colors";
 import {DEFAULT_SPACING, DEFAULT_RADIUS} from "styles/dimens";
 import ArrivalTimesDisplay from "./ArrivalTimesDisplay";
-
-const mockArrivalTimes = [
-    {id: "1", time: "1:00", arrivingSoon: false},
-    {id: "2", time: "2:00", arrivingSoon: false},
-    {id: "3", time: "3:00", arrivingSoon: false}
-];
+import connect from "./connect";
 
 const touchableBackground = (Platform.OS === "android") ? TouchableNativeFeedback.Ripple("", true) : null;
 
@@ -22,17 +17,17 @@ const touchableBackground = (Platform.OS === "android") ? TouchableNativeFeedbac
 /*     onRefresh: () => void */
 /* }; */
 
-const RouteRow = ({style, route}) => {
+const RouteRow = ({style, busNumber = "", busStop = "", arrivalMessage = "", arrivalTimes = []}) => {
     return (
         <View style={[styles.rowContainer, style]}>
-            <Text style={styles.row__BusNumber}>{route.busNumber}</Text>
+            <Text style={styles.row__BusNumber}>{busNumber}</Text>
 
             <View style={styles.row__BusStopContainer}>
-                <Text style={styles.row__BusStop}>{route.busStop}</Text>
+                <Text style={styles.row__BusStop}>{busStop}</Text>
 
                 <ArrivalTimesDisplay
-                    times={mockArrivalTimes}
-                    message={""}
+                    message={arrivalMessage}
+                    times={arrivalTimes}
                 />
             </View>
 
@@ -76,4 +71,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default RouteRow;
+export default connect(RouteRow);
