@@ -14,7 +14,7 @@ const RouteList = ({routes = []}: ConnectedProps) => {
             style={computeRowStyle(index === routes.length - 1)}
             id={route.id}
         />
-    )), routes);
+    )), [routes]);
 
     return (
         <ScrollView style={styles.routeList}>

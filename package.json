@@ -12,6 +12,7 @@
     "tsc:watch": "tsc -w"
   },
   "dependencies": {
+    "@devinsit/react-native-components": "github:DevinSit/react-native-components",
     "@react-native-community/async-storage": "^1.7.1",
     "@react-native-community/masked-view": "^0.1.6",
     "@reduxjs/toolkit": "^1.2.3",
