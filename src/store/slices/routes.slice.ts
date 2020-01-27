@@ -6,7 +6,10 @@ export const routesSlice = createCustomSlice({
     name: mounts.routes,
     initialState: {},
     reducers: {
-        ...crudSliceReducerFactory("Route")
+        ...crudSliceReducerFactory("Route"),
+
+        /* Saga Only Actions */
+        createRoute: (state: State) => state
     }
 });
 

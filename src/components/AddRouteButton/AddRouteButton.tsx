@@ -5,12 +5,9 @@ import {FloatingActionButton} from "@devinsit/react-native-components";
 import {RouteDialog} from "components/";
 import {Route} from "models/";
 import {PRIMARY_COLOR} from "styles/colors";
+import connect, {ConnectedProps} from "./connect";
 
-interface Props {
-    onAddRoute: (route: Route) => void
-}
-
-const AddRouteButton = ({onAddRoute}: Props) => {
+const AddRouteButton = ({onAddRoute}: ConnectedProps) => {
     const [isDialogVisible, setDialogVisible] = useState(false);
 
     const hideDialog = useCallback(() => setDialogVisible(false), [setDialogVisible]);
@@ -44,4 +41,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AddRouteButton;
+export default connect(AddRouteButton);
