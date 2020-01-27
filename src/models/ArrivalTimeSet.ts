@@ -44,6 +44,29 @@ class ArrivalTimeSet {
             return arrivalTimeSet;
         }
     }
+
+    static createFromRawTimes(times: Array<string>): ArrivalTimeSet {
+        const arrivalTimeSet = new ArrivalTimeSet({});
+
+        if (times.length === 0) {
+            arrivalTimeSet.message = ArrivalTimeSet.NO_TIMES_MESSAGE;
+        } else {
+            arrivalTimeSet.arrivalTimes = times.map((time) => {
+                const arrivingSoon = time.charAt(time.length - 1) === "*";
+                const parsedTime = arrivingSoon ? time.slice(0, -1) : time;
+
+                return new ArrivalTime({
+                    time: parsedTime,
+                    arrivingSoon,
+                    arrivalTimeSetId: arrivalTimeSet.id
+                });
+            });
+
+            arrivalTimeSet.arrivalTimeIds = arrivalTimeSet.arrivalTimes.map(({id}) => id);
+        }
+
+        return arrivalTimeSet;
+    }
 }
 
 export default ArrivalTimeSet;

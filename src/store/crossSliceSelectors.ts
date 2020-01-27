@@ -41,9 +41,15 @@ const getRoutes = createSelector([getRoutesById], (routesById) => Object.values(
 
 const getRoute = (id: string) => createSelector([getRoutesById], (byId: State) => byId[id]);
 
+const getRouteByTextCode = (textCode: string) => createSelector(
+    [getRoutes],
+    (routes) => routes.filter((route) => route.smsTextCode === textCode)[0]
+);
+
 export const crossSliceSelectors = {
     getArrivalTimeSetsById,
     getRoutesById,
     getRoutes,
-    getRoute
+    getRoute,
+    getRouteByTextCode
 };
