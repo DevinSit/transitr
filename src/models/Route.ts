@@ -2,16 +2,6 @@ import uuidv4 from "uuid/v4";
 import ArrivalTimeSet from "./ArrivalTimeSet";
 import ArrivalTime from "./ArrivalTime";
 
-interface Props {
-    id: string,
-    arrivalTimeSetIds: Array<string>,
-    busNumber: string,
-    busStop: string,
-    smsTextCode: string,
-    lastUpdated: Date,
-    arrivalTimeSets: Array<ArrivalTimeSet>
-};
-
 class Route {
     id: string;
     arrivalTimeSetIds: Array<string>;
@@ -21,7 +11,15 @@ class Route {
     lastUpdated: Date;
     arrivalTimeSets: Array<ArrivalTimeSet>;
 
-    constructor({id, arrivalTimeSetIds, busNumber, busStop, smsTextCode, lastUpdated, arrivalTimeSets}: Props = {}) {
+    constructor({
+        id = "",
+        arrivalTimeSetIds = [],
+        busNumber = "",
+        busStop = "",
+        smsTextCode = "",
+        lastUpdated = new Date(),
+        arrivalTimeSets = []
+    }: Route) {
         this.id = id || uuidv4();
         this.arrivalTimeSetIds = arrivalTimeSetIds || [];
 
@@ -44,26 +42,22 @@ class Route {
         return (length === 0) ? "" : this.arrivalTimeSets[length - 1].message;
     }
 
-    getBusNumberInt() {
+    getBusNumberInt(): number {
         return parseInt(this.busNumber.split(" ")[0]);
     }
 
-    mergeWithArrivalTimeSets(arrivalTimeSetsById) {
-        this.arrivalTimeSets = this.arrivalTimeSetIds.reduce((acc, id) => (
+    mergeWithArrivalTimeSets(arrivalTimeSetsById: {[id: string]: ArrivalTimeSet}): void {
+        this.arrivalTimeSets = this.arrivalTimeSetIds.reduce((acc: Array<ArrivalTimeSet>, id) => (
             (id in arrivalTimeSetsById) ? [...acc, new ArrivalTimeSet(arrivalTimeSetsById[id])] : acc
         ), []);
     }
 
-    static populateRoute(arrivalTimeSetsById) {
-        return (routeData) => {
-            if (routeData) {
-                const route = new Route(routeData);
-                route.mergeWithArrivalTimeSets(arrivalTimeSetsById);
+    static populateRoute(arrivalTimeSetsById: {[id: string]: ArrivalTimeSet}) {
+        return (routeData: Route) => {
+            const route = new Route(routeData);
+            route.mergeWithArrivalTimeSets(arrivalTimeSetsById);
 
-                return route;
-            } else {
-                return null;
-            }
+            return route;
         }
     }
 }

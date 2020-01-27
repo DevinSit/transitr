@@ -1,7 +1,12 @@
 import {connect} from "react-redux";
-import {crossSliceSelectors} from "store/";
+import {Route} from "models/";
+import {crossSliceSelectors, State} from "store/";
 
-const mapStateToProps = (state) => ({
+export interface ConnectedProps {
+    routes: Array<Route>
+}
+
+const mapStateToProps = (state: State): ConnectedProps => ({
     routes: crossSliceSelectors.getRoutes(state)
 });
 

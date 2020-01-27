@@ -3,11 +3,11 @@ import {ScrollView, StyleSheet, Text, View} from "react-native";
 import {DARK_COLOR} from "styles/colors";
 import {DEFAULT_SPACING} from "styles/dimens";
 import {RouteRow} from "./components";
-import connect from "./connect";
+import connect, {ConnectedProps} from "./connect";
 
 const computeRowStyle = (isLastRow: boolean) => isLastRow ? [styles.routeRow, styles.routeRow__last] : styles.routeRow;
 
-const RouteList = ({routes = []}) => {
+const RouteList = ({routes = []}: ConnectedProps) => {
     const routeRows = useMemo(() => routes.map((route, index) => (
         <RouteRow
             key={route.id}

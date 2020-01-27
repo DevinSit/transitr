@@ -1,6 +1,6 @@
 import {
     State, PayloadObject, ObjectPayloadAction, ArrayPayloadAction, IdPayloadAction, ReducerFactory
-} from "./types";
+} from "store/";
 
 /* Creates a set of case reducers for use with something
  * like redux-starter-kit's 'createReducer' or 'createSlice'.

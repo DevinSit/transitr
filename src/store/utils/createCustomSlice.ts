@@ -1,5 +1,5 @@
 import {createSlice, CreateSliceOptions} from "@reduxjs/toolkit";
-import {CustomSlice} from "store/utils/types";
+import {CustomSlice} from "store/";
 
 const createCustomSlice = (sliceOptions: CreateSliceOptions): CustomSlice => ({
     ...createSlice(sliceOptions),

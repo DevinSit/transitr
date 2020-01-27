@@ -1,18 +1,19 @@
 import React, {useMemo} from "react";
 import {StyleSheet, Text, View} from "react-native";
+import {ArrivalTime} from "models/";
 import {DEFAULT_RADIUS} from "styles/dimens";
 
-/* interface ArrivalTimeDisplayProps { */
-/*     time: string, */
-/*     arrivingSoon: boolean */
-/* }; */
-/*  */
-/* interface ArrivalTimesDisplayProps { */
-/*     times: Array<ArrivalTime>, */
-/*     message: string */
-/* }; */
+interface ArrivalTimesDisplayProps {
+    times: Array<ArrivalTime>,
+    message: string
+};
 
-const ArrivalTimesDisplay = ({times = [], message = ""}) => {
+interface ArrivalTimeDisplayProps {
+    time: string,
+    arrivingSoon: boolean
+};
+
+const ArrivalTimesDisplay = ({times = [], message = ""}: ArrivalTimesDisplayProps) => {
     const display = useMemo(() => {
         if (message !== "") {
             return <Text>{message}</Text>;
@@ -36,7 +37,7 @@ const ArrivalTimesDisplay = ({times = [], message = ""}) => {
     return <View style={styles.arrivalTimes__Container}>{display}</View>;
 };
 
-const ArrivalTimeDisplay = ({time, arrivingSoon}) => (
+const ArrivalTimeDisplay = ({time = "", arrivingSoon = false}: ArrivalTimeDisplayProps) => (
     <View style={arrivingSoon && styles.arrivalTime__Container_arrivingSoon}>
         <Text
             style={[

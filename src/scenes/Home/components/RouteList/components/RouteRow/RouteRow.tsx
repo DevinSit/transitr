@@ -1,23 +1,19 @@
 import React from "react";
-import {Platform, StyleSheet, Text, TouchableNativeFeedback, View} from "react-native";
+import {Platform, StyleProp, StyleSheet, Text, TouchableNativeFeedback, View, ViewStyle} from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {DARK_COLOR, LIGHT_COLOR, ICON_ON_WHITE_COLOR} from "styles/colors";
 import {DEFAULT_SPACING, DEFAULT_RADIUS} from "styles/dimens";
 import ArrivalTimesDisplay from "./ArrivalTimesDisplay";
-import connect from "./connect";
+import connect, {ConnectedProps} from "./connect";
 
-const touchableBackground = (Platform.OS === "android") ? TouchableNativeFeedback.Ripple("", true) : null;
+const touchableBackground = (Platform.OS === "android") ? TouchableNativeFeedback.Ripple("", true) : undefined;
 
-/* interface Props { */
-/*     style?: StyleSheet.Styles, */
-/*     busStop: string, */
-/*     busNumber: string, */
-/*     message: string, */
-/*     arrivalTimes: Array<ArrivalTime>, */
-/*     onRefresh: () => void */
-/* }; */
+interface Props extends ConnectedProps {
+    style?: StyleProp<ViewStyle>;
+    /* onRefresh: () => void */
+};
 
-const RouteRow = ({style, busNumber = "", busStop = "", arrivalMessage = "", arrivalTimes = []}) => {
+const RouteRow = ({style, busNumber = "", busStop = "", arrivalMessage = "", arrivalTimes = []}: Props) => {
     return (
         <View style={[styles.rowContainer, style]}>
             <Text style={styles.row__BusNumber}>{busNumber}</Text>
