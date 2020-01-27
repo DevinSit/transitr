@@ -1,1 +1,1 @@
-export {default as smsService} from "./smsService";
+export {default as SmsService} from "./smsService";
