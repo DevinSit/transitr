@@ -26,6 +26,10 @@ class Route {
     lastUpdated: Date;
     arrivalTimeSets: Array<ArrivalTimeSet>;
 
+    static SORT_LAST_UPDATED = "Last Updated";
+    static SORT_BUS_NUMBER = "Bus Number";
+    static SORT_BUS_STOP = "Bus Stop";
+
     constructor({
         id = uuidv4(),
         arrivalTimeSetIds = [],
