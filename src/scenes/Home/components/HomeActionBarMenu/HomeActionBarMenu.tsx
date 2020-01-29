@@ -1,11 +1,8 @@
 import React from "react";
 import {ActionBarMenu, ActionBarItem} from "@devinsit/react-native-components";
+import connect, {ConnectedProps} from "./connect";
 
-interface Props {
-    onSortClick: () => void;
-}
-
-const HomeActionBarMenu = ({onSortClick}: Props) => (
+const HomeActionBarMenu = ({onSortClick}: ConnectedProps) => (
     <ActionBarMenu>
         <ActionBarItem
             icon="sort"
@@ -15,4 +12,4 @@ const HomeActionBarMenu = ({onSortClick}: Props) => (
     </ActionBarMenu>
 );
 
-export default HomeActionBarMenu;
+export default connect(HomeActionBarMenu);

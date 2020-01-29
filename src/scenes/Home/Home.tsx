@@ -15,7 +15,7 @@ const Home = () => (
 
 // react-navigation options
 Home.navigationOptions = {
-    headerRight: HomeActionBarMenu
+    headerRight: () => <HomeActionBarMenu />
 };
 
 export default Home;
