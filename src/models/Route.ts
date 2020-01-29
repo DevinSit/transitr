@@ -47,7 +47,7 @@ class Route {
         this.busNumber = busNumber;
         this.busStop = busStop;
         this.smsTextCode = smsTextCode;
-        this.lastUpdated = lastUpdated;
+        this.lastUpdated = new Date(lastUpdated);
 
         // Derived properties
         this.arrivalTimeSets = arrivalTimeSets;
