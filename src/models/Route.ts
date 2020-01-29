@@ -17,6 +17,12 @@ interface Constructor {
     arrivalTimeSets?: Array<ArrivalTimeSet>;
 }
 
+export enum SortMethod {
+    SORT_BUS_NUMBER = "Bus Number",
+    SORT_BUS_STOP = "Bus Stop",
+    SORT_LAST_UPDATED = "Last Updated"
+}
+
 class Route {
     id: string;
     arrivalTimeSetIds: Array<string>;
@@ -25,10 +31,6 @@ class Route {
     smsTextCode: string;
     lastUpdated: Date;
     arrivalTimeSets: Array<ArrivalTimeSet>;
-
-    static SORT_LAST_UPDATED = "Last Updated";
-    static SORT_BUS_NUMBER = "Bus Number";
-    static SORT_BUS_STOP = "Bus Stop";
 
     constructor({
         id = uuidv4(),
@@ -45,7 +47,7 @@ class Route {
         this.busNumber = busNumber;
         this.busStop = busStop;
         this.smsTextCode = smsTextCode;
-        this.lastUpdated = lastUpdated;
+        this.lastUpdated = new Date(lastUpdated);
 
         // Derived properties
         this.arrivalTimeSets = arrivalTimeSets;
@@ -136,6 +138,24 @@ class Route {
             busStop
         };
     };
+
+    static sortRoutes(routes: Array<Route>, method: SortMethod): Array<Route> {
+        // Need to create a copy of the routes so that a different array instance is returned.
+        // This is relevant for things like createSelector, since we need to break strict
+        // equality when the sort order has changed.
+        const sortedRoutes = [...routes];
+
+        switch (method) {
+            case SortMethod.SORT_BUS_NUMBER:
+                return sortedRoutes.sort((route1, route2) => route1.getBusNumberInt() - route2.getBusNumberInt());
+            case SortMethod.SORT_BUS_STOP:
+                return sortedRoutes.sort((route1, route2) => route1.busStop.localeCompare(route2.busStop));
+            case SortMethod.SORT_LAST_UPDATED:
+                return sortedRoutes.sort((route1, route2) => route2.lastUpdated.getTime() - route1.lastUpdated.getTime());
+            default:
+                return sortedRoutes;
+        }
+    }
 }
 
 export default Route;

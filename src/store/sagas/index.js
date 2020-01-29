@@ -1,7 +1,7 @@
-import appSaga from "./app.sagas";
+import routesSaga from "./routes.sagas";
 
 const sagas = [
-    appSaga
+    routesSaga
 ];
 
 const registerSagas = (middleware) => sagas.forEach((saga) => middleware.run(saga));

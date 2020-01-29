@@ -1,4 +1,3 @@
-import {createSelector} from "@reduxjs/toolkit";
 import {State} from "store/";
 import {createCustomSlice, crudSliceReducerFactory} from "store/utils";
 import mounts from "store/mountpoints";
