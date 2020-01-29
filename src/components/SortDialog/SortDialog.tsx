@@ -4,10 +4,14 @@ import {Route} from "models/";
 import {DEFAULT_SPACING} from "styles/dimens";
 import connect, {ConnectedProps} from "./connect";
 
-const LABELS = [Route.SORT_BUS_STOP, Route.SORT_BUS_NUMBER, Route.SORT_LAST_UPDATED];
+const LABELS: Array<Route.SortMethod> = [
+    Route.SortMethod.SORT_BUS_STOP,
+    Route.SortMethod.SORT_BUS_NUMBER,
+    Route.SortMethod.SORT_LAST_UPDATED
+];
 
 const SortDialog = ({
-    value = Route.SORT_BUS_STOP,
+    value = Route.SortMethod.SORT_BUS_STOP,
     isVisible = false,
     onValueChange,
     onClose

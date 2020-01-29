@@ -7,7 +7,7 @@ export interface ConnectedProps {
 }
 
 const mapStateToProps = (state: State): ConnectedProps => ({
-    routes: crossSliceSelectors.getRoutes(state)
+    routes: crossSliceSelectors.getSortedRoutes(state)
 });
 
 export default connect(mapStateToProps);

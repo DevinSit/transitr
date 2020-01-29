@@ -17,6 +17,14 @@ interface Constructor {
     arrivalTimeSets?: Array<ArrivalTimeSet>;
 }
 
+// This namespace will get merged with the 'Route' class,
+// so that the sort methods are accessed like 'Route.SortMethod.SORT_BUS_NUMBER'.
+enum SortMethod {
+    SORT_BUS_NUMBER = "Bus Number",
+    SORT_BUS_STOP = "Bus Stop",
+    SORT_LAST_UPDATED = "Last Updated"
+}
+
 class Route {
     id: string;
     arrivalTimeSetIds: Array<string>;
@@ -26,9 +34,7 @@ class Route {
     lastUpdated: Date;
     arrivalTimeSets: Array<ArrivalTimeSet>;
 
-    static SORT_LAST_UPDATED = "Last Updated";
-    static SORT_BUS_NUMBER = "Bus Number";
-    static SORT_BUS_STOP = "Bus Stop";
+    static SortMethod = SortMethod;
 
     constructor({
         id = uuidv4(),
@@ -136,6 +142,24 @@ class Route {
             busStop
         };
     };
+
+    static sortRoutes(routes: Array<Route>, method: Route.SortMethod): Array<Route> {
+        // Need to create a copy of the routes so that a different array instance is returned.
+        // This is relevant for things like createSelector, since we need to break strict
+        // equality when the sort order has changed.
+        const sortedRoutes = [...routes];
+
+        switch (method) {
+            case Route.SortMethod.SORT_BUS_NUMBER:
+                return sortedRoutes.sort((route1, route2) => route1.getBusNumberInt() - route2.getBusNumberInt());
+            case Route.SortMethod.SORT_BUS_STOP:
+                return sortedRoutes.sort((route1, route2) => route1.busStop.localeCompare(route2.busStop));
+            case Route.SortMethod.SORT_LAST_UPDATED:
+                return sortedRoutes.sort((route1, route2) => route2.lastUpdated - route1.lastUpdated);
+            default:
+                return sortedRoutes;
+        }
+    }
 }
 
 export default Route;

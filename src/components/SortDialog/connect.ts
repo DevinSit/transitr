@@ -15,7 +15,7 @@ interface DispatchProps {
 export interface ConnectedProps extends StateProps, DispatchProps {};
 
 const mapStateToProps = (state: State): StateProps => ({
-    value: appSlice.selectors.getSortBy(state),
+    value: appSlice.selectors.getSortMethod(state),
     isVisible: appSlice.selectors.getSortDialogVisibility(state)
 });
 
