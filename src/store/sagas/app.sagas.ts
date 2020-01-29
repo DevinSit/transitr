@@ -4,7 +4,21 @@ import {ArrivalTimeSet, Route} from "models/";
 import {SmsService} from "services/";
 import {arrivalTimesSlice, arrivalTimeSetsSlice, routesSlice, crossSliceSelectors} from "store/";
 
-function* sendSms(message: string) {
+// Need the 'type' definition for the action, otherwise typescript
+// picks the wrong overload to complain about for the 'takeEvery' in appSaga.
+function* createRoute({payload}: {payload: Route, type: string}) {
+    const route = new Route(payload);
+
+    yield put(routesSlice.actions.addRoute(route));
+    yield put(routesSlice.actions.sendSms(route.id));
+}
+
+function* sendSms({payload}: {payload: string, type: string}) {
+    const routeId = payload;
+    const route = yield select(crossSliceSelectors.getRoute(routeId));
+
+    const message = route.smsTextCode;
+
     const permissionsGranted = yield call(SmsService.requestPermissions);
 
     if (permissionsGranted) {
@@ -35,20 +49,12 @@ function* receiveSms() {
     }
 }
 
-// Need the 'type' definition for the action, otherwise typescript
-// picks the wrong overload to complain about for the 'takeEvery' in appSaga.
-function* createRoute({payload}: {payload: Route, type: string}) {
-    const route = new Route(payload);
-
-    yield put(routesSlice.actions.addRoute(route));
-    yield call(sendSms, route.smsTextCode);
-}
-
 function* appSaga() {
     yield fork(receiveSms);
 
     yield all([
-        takeEvery(routesSlice.actions.createRoute, createRoute)
+        takeEvery(routesSlice.actions.createRoute, createRoute),
+        takeEvery(routesSlice.actions.sendSms, sendSms)
     ]);
 }
 
