@@ -23,7 +23,8 @@ export const routesSlice = createCustomSlice({
         },
 
         /* Saga Only Actions */
-        createRoute: (state: State) => state
+        createRoute: (state: State) => state,
+        sendSms: (state: State) => state
     }
 });
 

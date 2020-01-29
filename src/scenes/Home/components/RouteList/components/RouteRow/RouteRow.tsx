@@ -10,10 +10,11 @@ const touchableBackground = (Platform.OS === "android") ? TouchableNativeFeedbac
 
 interface Props extends ConnectedProps {
     style?: StyleProp<ViewStyle>;
-    /* onRefresh: () => void */
 };
 
-const RouteRow = ({style, busNumber = "", busStop = "", arrivalMessage = "", arrivalTimes = []}: Props) => {
+const RouteRow = ({
+    style, busNumber = "", busStop = "", arrivalMessage = "", arrivalTimes = [], onRefresh
+}: Props) => {
     return (
         <View style={[styles.rowContainer, style]}>
             <Text style={styles.row__BusNumber}>{busNumber}</Text>
@@ -28,7 +29,7 @@ const RouteRow = ({style, busNumber = "", busStop = "", arrivalMessage = "", arr
             </View>
 
             <View style={styles.row__RefreshContainer}>
-                <TouchableNativeFeedback background={touchableBackground}>
+                <TouchableNativeFeedback background={touchableBackground} onPress={onRefresh}>
                     <View style={styles.row__Refresh}>
                         <Icon name="refresh" color={ICON_ON_WHITE_COLOR} size={24} />
                     </View>
