@@ -1,6 +1,17 @@
 import uuidv4 from "uuid/v4";
 import ArrivalTime from "./ArrivalTime";
 
+// Declare the same class props on a separate Constructor interface
+// so that all attributes are optional when constructing an instance.
+interface Constructor {
+    id?: string;
+    routeId?: string;
+    arrivalTimeIds?: Array<string>;
+    message?: string;
+    created?: Date;
+    arrivalTimes?: Array<ArrivalTime>;
+}
+
 class ArrivalTimeSet {
     id: string;
     routeId: string;
@@ -18,7 +29,7 @@ class ArrivalTimeSet {
         message = "",
         created = new Date(),
         arrivalTimes = []
-    }: ArrivalTimeSet) {
+    }: Constructor = {}) {
         this.id = id;
         this.routeId = routeId;
         this.arrivalTimeIds = arrivalTimeIds;
@@ -46,12 +57,12 @@ class ArrivalTimeSet {
     }
 
     static createFromRawTimes(times: Array<string>): ArrivalTimeSet {
-        const arrivalTimeSet = new ArrivalTimeSet({});
+        const arrivalTimeSet = new ArrivalTimeSet();
 
         if (times.length === 0) {
             arrivalTimeSet.message = ArrivalTimeSet.NO_TIMES_MESSAGE;
         } else {
-            arrivalTimeSet.arrivalTimes = times.map((time) => {
+            const arrivalTimes = times.map((time) => {
                 const arrivingSoon = time.charAt(time.length - 1) === "*";
                 const parsedTime = arrivingSoon ? time.slice(0, -1) : time;
 
@@ -62,7 +73,8 @@ class ArrivalTimeSet {
                 });
             });
 
-            arrivalTimeSet.arrivalTimeIds = arrivalTimeSet.arrivalTimes.map(({id}) => id);
+            arrivalTimeSet.arrivalTimes = arrivalTimes;
+            arrivalTimeSet.arrivalTimeIds = arrivalTimes.map((arrivalTime: ArrivalTime) => arrivalTime.id);
         }
 
         return arrivalTimeSet;

@@ -35,7 +35,9 @@ function* receiveSms() {
     }
 }
 
-function* createRoute({payload}: {payload: Route}) {
+// Need the 'type' definition for the action, otherwise typescript
+// picks the wrong overload to complain about for the 'takeEvery' in appSaga.
+function* createRoute({payload}: {payload: Route, type: string}) {
     const route = new Route(payload);
 
     yield put(routesSlice.actions.addRoute(route));

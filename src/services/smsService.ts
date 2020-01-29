@@ -1,6 +1,5 @@
 import {NativeEventEmitter, NativeModules, PermissionsAndroid} from "react-native";
-import {parseTranspoResponse} from "utils/";
-import {addTimesToRoute} from "store/Routes";
+import {EventChannel} from "redux-saga";
 import {Route} from "models/";
 
 type RawArrivalTimes = Array<string>;
@@ -15,10 +14,7 @@ interface ParsedSmsEvent {
     times: RawArrivalTimes;
 }
 
-type Emitter = (data: ParsedSmsEvent) => void;
-type Subscriber = () => RawSmsEvent;
-type Unsubscriber = () => void;
-type EventChannel = (callback: (emitter: Emitter) => Unsubscriber) => Subscriber;
+type Emitter = (input: ParsedSmsEvent) => void;
 
 const extractArrivalTimes = (message: string): RawArrivalTimes => (
     message.split(" ").filter((hunk: string) => hunk.includes(":"))
@@ -29,7 +25,8 @@ export default class SmsService {
         NativeModules.SmsService.sendTextMessage(message);
     }
 
-    static registerReceiver(eventChannel: EventChannel): Subscriber {
+    // I couldn't figure out how to type redux-saga's eventChannel functional _itself_, so... it get's 'any'.
+    static registerReceiver(eventChannel: any): EventChannel<ParsedSmsEvent> {
         return eventChannel((emitter: Emitter) => {
             const nativeEventEmitter = new NativeEventEmitter(NativeModules.SmsService);
 
@@ -47,7 +44,7 @@ export default class SmsService {
         });
     }
 
-    static async requestPermissions(): boolean {
+    static async requestPermissions(): Promise<boolean> {
         const {GRANTED} = PermissionsAndroid.RESULTS;
 
         try {

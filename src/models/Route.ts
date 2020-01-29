@@ -5,6 +5,18 @@ import ArrivalTime from "./ArrivalTime";
 const LETTERS_ONLY = /^[a-zA-Z ']+$/;
 const NUMBERS_ONLY = /^\d+$/;
 
+// Declare the same class props on a separate Constructor interface
+// so that all attributes are optional when constructing an instance.
+interface Constructor {
+    id?: string;
+    arrivalTimeSetIds?: Array<string>;
+    busNumber?: string;
+    busStop?: string;
+    smsTextCode?: string;
+    lastUpdated?: Date;
+    arrivalTimeSets?: Array<ArrivalTimeSet>;
+}
+
 class Route {
     id: string;
     arrivalTimeSetIds: Array<string>;
@@ -15,24 +27,24 @@ class Route {
     arrivalTimeSets: Array<ArrivalTimeSet>;
 
     constructor({
-        id = "",
+        id = uuidv4(),
         arrivalTimeSetIds = [],
         busNumber = "",
         busStop = "",
         smsTextCode = "",
         lastUpdated = new Date(),
         arrivalTimeSets = []
-    }: Route) {
-        this.id = id || uuidv4();
-        this.arrivalTimeSetIds = arrivalTimeSetIds || [];
+    }: Constructor = {}) {
+        this.id = id;
+        this.arrivalTimeSetIds = arrivalTimeSetIds;
 
-        this.busNumber = busNumber || "";
-        this.busStop = busStop || "";
-        this.smsTextCode = smsTextCode || "";
-        this.lastUpdated = lastUpdated || new Date();
+        this.busNumber = busNumber;
+        this.busStop = busStop;
+        this.smsTextCode = smsTextCode;
+        this.lastUpdated = lastUpdated;
 
         // Derived properties
-        this.arrivalTimeSets = arrivalTimeSets || [];
+        this.arrivalTimeSets = arrivalTimeSets;
     }
 
     getLatestArrivalTimes(): Array<ArrivalTime> {
