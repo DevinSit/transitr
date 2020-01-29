@@ -1,17 +1,18 @@
 import React, {useMemo} from "react";
 import {ModalDialog, RadioButton} from "@devinsit/react-native-components";
 import {Route} from "models/";
+import {SortMethod} from "models/Route";
 import {DEFAULT_SPACING} from "styles/dimens";
 import connect, {ConnectedProps} from "./connect";
 
-const LABELS: Array<Route.SortMethod> = [
-    Route.SortMethod.SORT_BUS_STOP,
-    Route.SortMethod.SORT_BUS_NUMBER,
-    Route.SortMethod.SORT_LAST_UPDATED
+const LABELS: Array<SortMethod> = [
+    SortMethod.SORT_BUS_STOP,
+    SortMethod.SORT_BUS_NUMBER,
+    SortMethod.SORT_LAST_UPDATED
 ];
 
 const SortDialog = ({
-    value = Route.SortMethod.SORT_BUS_STOP,
+    value = SortMethod.SORT_BUS_STOP,
     isVisible = false,
     onValueChange,
     onClose

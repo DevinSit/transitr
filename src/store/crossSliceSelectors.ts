@@ -1,5 +1,6 @@
 import {createSelector} from "@reduxjs/toolkit";
 import {ArrivalTime, ArrivalTimeSet, Route} from "models/";
+import {SortMethod} from "models/Route";
 import {appSlice, arrivalTimesSlice, arrivalTimeSetsSlice, routesSlice} from "./slices";
 import {State} from "./types";
 
@@ -41,7 +42,7 @@ const getRoutes = createSelector([getRoutesById], (routesById) => Object.values(
 
 const getSortedRoutes = createSelector(
     [getRoutes, appSlice.selectors.getSortMethod],
-    (routes: Array<Route>, sortMethod: Route.SortMethod) => Route.sortRoutes(routes, sortMethod)
+    (routes: Array<Route>, sortMethod: SortMethod) => Route.sortRoutes(routes, sortMethod)
 );
 
 const getRoute = (id: string) => createSelector([getRoutesById], (byId: State) => byId[id]);

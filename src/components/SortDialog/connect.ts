@@ -8,7 +8,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    onValueChange: (string) => void;
+    onValueChange: (value: string) => void;
     onClose: () => void;
 }
 

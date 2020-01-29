@@ -1,14 +1,14 @@
 import {createSelector} from "@reduxjs/toolkit";
 import {createCustomSlice} from "store/utils";
-import {Route} from "models/";
+import {SortMethod} from "models/Route";
 import {State} from "store/";
 import mounts from "store/mountpoints";
 
 export const appSlice = createCustomSlice({
     name: mounts.app,
-    initialState: {sortMethod: Route.SortMethod.SORT_BUS_STOP, sortDialogVisible: false},
+    initialState: {sortMethod: SortMethod.SORT_BUS_STOP, sortDialogVisible: false},
     reducers: {
-        setSortBy: (state: State, action: {payload: Route.SortMethod}) => {
+        setSortBy: (state: State, action: {payload: SortMethod}) => {
             state.sortMethod = action.payload;
         },
         setSortDialogVisibility: (state: State, action: {payload: boolean}) => {
@@ -21,8 +21,8 @@ export const appSlice = createCustomSlice({
 
 const getAppState = (state: State) => state[mounts.app];
 
-const getSortMethod = createSelector([getAppState], (state: State) => state.sortMethod);
-const getSortDialogVisibility = createSelector([getAppState], (state: State) => state.sortDialogVisible);
+const getSortMethod = createSelector([getAppState], (state: State): SortMethod => state.sortMethod);
+const getSortDialogVisibility = createSelector([getAppState], (state: State): boolean => state.sortDialogVisible);
 
 appSlice.selectors = {
     getAppState,
