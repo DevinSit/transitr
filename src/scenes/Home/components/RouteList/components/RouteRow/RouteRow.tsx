@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Platform, StyleProp, StyleSheet, Text, TouchableNativeFeedback, View, ViewStyle} from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {DARK_COLOR, LIGHT_COLOR, ICON_ON_WHITE_COLOR} from "styles/colors";
@@ -13,8 +13,27 @@ interface Props extends ConnectedProps {
 };
 
 const RouteRow = ({
-    style, busNumber = "", busStop = "", arrivalMessage = "", arrivalTimes = [], onRefresh
+    style, busNumber = "", busStop = "", arrivalMessage = "", arrivalTimes = [], lastUpdated = "", onRefresh
 }: Props) => {
+    const [isRefreshing, setRefreshing] = useState(false);
+
+    const onRefreshClick = useCallback(() => {
+        if (!isRefreshing) {
+            setRefreshing(true);
+            onRefresh();
+        }
+    }, [onRefresh, isRefreshing, setRefreshing]);
+
+    useEffect(() => {
+        // When 'lastUpdated' changes, that means that new arrival times have been created.
+        // As such, refreshing can stop.
+        //
+        // Note that if 'lastUpdated' were a date value instead of a string value, this wouldn't
+        // work because JavaScript dates with the same values aren't strictly equal
+        // (i.e. new Date("1990-01-01") !== new Date("1990-01-01")).
+        setRefreshing(false);
+    }, [lastUpdated]);
+
     return (
         <View style={[styles.rowContainer, style]}>
             <Text style={styles.row__BusNumber}>{busNumber}</Text>
@@ -23,13 +42,14 @@ const RouteRow = ({
                 <Text style={styles.row__BusStop}>{busStop}</Text>
 
                 <ArrivalTimesDisplay
+                    isRefreshing={isRefreshing}
                     message={arrivalMessage}
                     times={arrivalTimes}
                 />
             </View>
 
             <View style={styles.row__RefreshContainer}>
-                <TouchableNativeFeedback background={touchableBackground} onPress={onRefresh}>
+                <TouchableNativeFeedback background={touchableBackground} onPress={onRefreshClick}>
                     <View style={styles.row__Refresh}>
                         <Icon name="refresh" color={ICON_ON_WHITE_COLOR} size={24} />
                     </View>

@@ -8,10 +8,11 @@ interface OwnProps {
 }
 
 interface StateProps {
+    arrivalMessage: string;
+    arrivalTimes: Array<ArrivalTime>;
     busNumber: string;
     busStop: string;
-    arrivalTimes: Array<ArrivalTime>;
-    arrivalMessage: string;
+    lastUpdated: string;
 }
 
 interface DispatchProps {
@@ -31,10 +32,11 @@ const mapStateToProps = (state: State, ownProps: OwnProps) => {
         const arrivalMessage = route?.getLatestArrivalMessage();
 
         return {
+            arrivalMessage,
+            arrivalTimes,
             busNumber: route?.busNumber,
             busStop: route?.busStop,
-            arrivalTimes,
-            arrivalMessage
+            lastUpdated: route?.lastUpdated.toString()
         };
     };
 };

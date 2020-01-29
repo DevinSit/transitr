@@ -4,26 +4,41 @@ import {ArrivalTime} from "models/";
 import {DEFAULT_RADIUS} from "styles/dimens";
 
 interface ArrivalTimesDisplayProps {
-    times: Array<ArrivalTime>,
-    message: string
+    isRefreshing: boolean;
+    message: string;
+    times: Array<ArrivalTime>;
 };
 
 interface ArrivalTimeDisplayProps {
-    time: string,
-    arrivingSoon: boolean
+    time: string;
+    arrivingSoon: boolean;
 };
 
-const ArrivalTimesDisplay = ({times = [], message = ""}: ArrivalTimesDisplayProps) => {
+const RetrievingMessage = () => (
+    <Text style={styles.arrivalTime__Text_retrievingTimes}>
+        Retrieving latest arrival times...
+    </Text>
+);
+
+const ArrivalTimesDisplay = ({isRefreshing = false, message = "", times = []}: ArrivalTimesDisplayProps) => {
     const display = useMemo(() => {
-        if (message !== "") {
+        // Yes, the order of these conditionals matters. Specifically with regard to the third one,
+        // when the times array is empty. This array will be empty in two cases:
+        //
+        // 1. When first creating a route.
+        // 2. When there are no upcoming arrival times.
+        //
+        // We only want to show the RetrievingMessage for case 1. Case 2 is handled by conditional 2,
+        // and by the fact that conditional 2 takes precedence over conditional 3.
+        //
+        // However, actual refreshing (as dictated by the parent component, RouteRow), takes precedence over everything.
+        if (isRefreshing) {  // Refreshing
+            return <RetrievingMessage />;
+        } else if (message !== "") {  // Specific message (e.g. 'No upcoming arrival times')
             return <Text>{message}</Text>;
-        } else if (times.length === 0) {
-            return (
-                <Text style={styles.arrivalTime__Text_retrievingTimes}>
-                    Retrieving latest arrival times...
-                </Text>
-            );
-        } else {
+        } else if (times.length === 0) {  // On first creation of a route
+            return <RetrievingMessage />;
+        } else {  // Display times like usual
             return times.map(({time, arrivingSoon}, index) => (
                 <ArrivalTimeDisplay
                     key={time + index}
@@ -32,7 +47,7 @@ const ArrivalTimesDisplay = ({times = [], message = ""}: ArrivalTimesDisplayProp
                 />
             ));
         }
-    }, [times, message]);
+    }, [isRefreshing, message, times]);
 
     return <View style={styles.arrivalTimes__Container}>{display}</View>;
 };

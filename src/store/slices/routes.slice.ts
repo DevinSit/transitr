@@ -8,7 +8,7 @@ export const routesSlice = createCustomSlice({
     initialState: {},
     reducers: {
         ...crudSliceReducerFactory("Route"),
-        addArrivalTimeSetToRoute: (state, action) => {
+        addArrivalTimeSetToRoute: (state: State, action) => {
             // Expects a ArrivalTimeSet object as payload
             const {id, routeId} = action.payload;
 
@@ -17,6 +17,9 @@ export const routesSlice = createCustomSlice({
             if (state[routeId]) {
                 state[routeId] = {...state[routeId]};
                 state[routeId].arrivalTimeSetIds = [...state[routeId].arrivalTimeSetIds, id];
+
+                // Update lastUpdated time
+                state[routeId].lastUpdated = new Date();
             }
 
             return state;
