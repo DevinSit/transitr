@@ -73,7 +73,9 @@ const styles = StyleSheet.create({
         backgroundColor: LIGHT_COLOR,
         borderRadius: DEFAULT_RADIUS,
         flexDirection: "row",
-        padding: DEFAULT_SPACING / 1.5
+        padding: DEFAULT_SPACING / 1.5,
+        // Very subtle box shadow
+        elevation: 1
     },
     row__BusNumber: {
         color: DARK_COLOR,
