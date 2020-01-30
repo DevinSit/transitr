@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import {ScrollView, StyleSheet, Text, View} from "react-native";
-import {DARK_COLOR} from "styles/colors";
+import {DARK_COLOR, GREY_COLOR} from "styles/colors";
 import {DEFAULT_SPACING} from "styles/dimens";
 import {RouteRow} from "./components";
 import connect, {ConnectedProps} from "./connect";
@@ -16,20 +16,35 @@ const RouteList = ({routes = []}: ConnectedProps) => {
         />
     )), [routes]);
 
+    // Need a View when there aren't any rows to properly position the EmptyMessage.
+    // Doesn't work with a ScrollView.
+    const Container = routeRows.length > 0 ? ScrollView : View;
+
     return (
-        <ScrollView style={styles.routeList}>
+        <Container style={styles.routeList}>
             <Text style={styles.routeListHeader}>
                 Routes
             </Text>
 
-            {routeRows}
-        </ScrollView>
+            {routeRows.length > 0 ? routeRows : <EmptyMessage />}
+        </Container>
     );
 };
 
+// Yes, the styling for this thing is jank.
+const EmptyMessage = () => (
+    <View style={styles.emptyMessage}>
+        <Text style={styles.emptyMessage__text}>
+            Add your first route
+        </Text>
+        <Text style={styles.emptyMessage__arrow}>↓</Text>
+    </View>
+);
+
 const styles = StyleSheet.create({
     routeList: {
-        paddingHorizontal: DEFAULT_SPACING
+        flex: 1,
+        paddingHorizontal: DEFAULT_SPACING,
     },
     routeListHeader: {
         color: DARK_COLOR,
@@ -42,6 +57,22 @@ const styles = StyleSheet.create({
     },
     routeRow__last: {
         marginBottom: DEFAULT_SPACING * 6
+    },
+    emptyMessage: {
+        flex: 1,
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        marginBottom: DEFAULT_SPACING * 6,
+    },
+    emptyMessage__text: {
+        fontSize: 18,
+        color: GREY_COLOR,
+        marginRight: 16
+    },
+    emptyMessage__arrow: {
+        fontSize: 64,
+        marginRight: 26,
+        color: GREY_COLOR
     }
 });
 
