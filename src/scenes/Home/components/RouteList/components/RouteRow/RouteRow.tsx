@@ -13,7 +13,14 @@ interface Props extends ConnectedProps {
 };
 
 const RouteRow = ({
-    style, busNumber = "", busStop = "", arrivalMessage = "", arrivalTimes = [], lastUpdated = "", onRefresh
+    style,
+    busNumber = "",
+    busStop = "",
+    arrivalMessage = "",
+    arrivalTimes = [],
+    lastUpdated = "",
+    onDelete,
+    onRefresh
 }: Props) => {
     const [isRefreshing, setRefreshing] = useState(false);
 
@@ -35,27 +42,29 @@ const RouteRow = ({
     }, [lastUpdated]);
 
     return (
-        <View style={[styles.rowContainer, style]}>
-            <Text style={styles.row__BusNumber}>{busNumber}</Text>
+        <TouchableNativeFeedback onLongPress={onDelete}>
+            <View style={[styles.rowContainer, style]}>
+                <Text style={styles.row__BusNumber}>{busNumber}</Text>
 
-            <View style={styles.row__BusStopContainer}>
-                <Text style={styles.row__BusStop}>{busStop}</Text>
+                <View style={styles.row__BusStopContainer}>
+                    <Text style={styles.row__BusStop}>{busStop}</Text>
 
-                <ArrivalTimesDisplay
-                    isRefreshing={isRefreshing}
-                    message={arrivalMessage}
-                    times={arrivalTimes}
-                />
+                    <ArrivalTimesDisplay
+                        isRefreshing={isRefreshing}
+                        message={arrivalMessage}
+                        times={arrivalTimes}
+                    />
+                </View>
+
+                <View style={styles.row__RefreshContainer}>
+                    <TouchableNativeFeedback background={touchableBackground} onPress={onRefreshClick}>
+                        <View style={styles.row__Refresh}>
+                            <Icon name="refresh" color={ICON_ON_WHITE_COLOR} size={24} />
+                        </View>
+                    </TouchableNativeFeedback>
+                </View>
             </View>
-
-            <View style={styles.row__RefreshContainer}>
-                <TouchableNativeFeedback background={touchableBackground} onPress={onRefreshClick}>
-                    <View style={styles.row__Refresh}>
-                        <Icon name="refresh" color={ICON_ON_WHITE_COLOR} size={24} />
-                    </View>
-                </TouchableNativeFeedback>
-            </View>
-        </View>
+        </TouchableNativeFeedback>
     );
 };
 
