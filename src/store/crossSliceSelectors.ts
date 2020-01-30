@@ -52,11 +52,17 @@ const getRouteByTextCode = (textCode: string) => createSelector(
     (routes) => routes.filter((route) => route.smsTextCode === textCode)[0]
 );
 
+const getDeleteRouteDialogRoute = createSelector(
+    [getRoutesById, appSlice.selectors.getDeleteRouteDialogRouteId],
+    (byId, id) => byId[id]
+)
+
 export const crossSliceSelectors = {
     getArrivalTimeSetsById,
     getRoutesById,
     getRoutes,
     getRoute,
     getSortedRoutes,
-    getRouteByTextCode
+    getRouteByTextCode,
+    getDeleteRouteDialogRoute
 };

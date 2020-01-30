@@ -5,12 +5,10 @@ import {Route} from "models/";
 import {DARK_COLOR, GREY_LIGHT_COLOR} from "styles/colors";
 import {DEFAULT_SPACING} from "styles/dimens";
 
-/* Container */
-
 interface Props {
-    isVisible: boolean,
-    onCancel: () => void,
-    onSave: (route: Route) => void
+    isVisible: boolean;
+    onCancel: () => void;
+    onSave: (route: Route) => void;
 };
 
 const RouteDialog = ({isVisible = false, onCancel, onSave}: Props) => {

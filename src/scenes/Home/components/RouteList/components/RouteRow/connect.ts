@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {ArrivalTime} from "models/";
-import {crossSliceSelectors, routesSlice, State} from "store/";
+import {appSlice, crossSliceSelectors, routesSlice, State} from "store/";
 
 interface OwnProps {
     id: string;
@@ -16,6 +16,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
+    onDelete: () => void;
     onRefresh: () => void;
 }
 
@@ -42,6 +43,7 @@ const mapStateToProps = (state: State, ownProps: OwnProps) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => ({
+    onDelete: () => dispatch(appSlice.actions.setDeleteRouteDialogRouteId(ownProps.id)),
     onRefresh: () => dispatch(routesSlice.actions.sendSms(ownProps.id))
 });
 
