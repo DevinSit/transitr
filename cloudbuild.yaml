@@ -1,0 +1,14 @@
+steps:
+    - id: "Install dependencies"
+      name: "gcr.io/cloud-builders/npm"
+      args: ["install"]
+
+    - id: "Run linting"
+      name: "gcr.io/cloud-builders/npm"
+      args: ["run", "lint"]
+
+    - id: "Run typescript checker"
+      name: "gcr.io/cloud-builders/npm"
+      args: ["run", "tsc"]
+
+timeout: 1800s
