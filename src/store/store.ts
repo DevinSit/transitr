@@ -3,7 +3,6 @@ import {persistStore, persistReducer} from "redux-persist";
 import AsyncStorage from "@react-native-community/async-storage";
 import createSagaMiddleware from "redux-saga";
 
-import mounts from "./mountpoints";
 import registerSagas from "./sagas";
 import createRootReducer from "./rootReducer";
 

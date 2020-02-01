@@ -7,12 +7,12 @@ interface ArrivalTimesDisplayProps {
     isRefreshing: boolean;
     message: string;
     times: Array<ArrivalTime>;
-};
+}
 
 interface ArrivalTimeDisplayProps {
     time: string;
     arrivingSoon: boolean;
-};
+}
 
 const RetrievingMessage = () => (
     <Text style={styles.arrivalTime__Text_retrievingTimes}>

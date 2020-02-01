@@ -20,7 +20,7 @@ interface DispatchProps {
     onRefresh: () => void;
 }
 
-export interface ConnectedProps extends StateProps, DispatchProps {};
+export interface ConnectedProps extends StateProps, DispatchProps {}
 
 const mapStateToProps = (state: State, ownProps: OwnProps) => {
     const {id} = ownProps;

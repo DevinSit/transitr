@@ -22,7 +22,7 @@ interface IntermediateDispatchProps {
     onDelete: (id: string) => void;
 }
 
-export interface ConnectedProps extends StateProps, DispatchProps {};
+export interface ConnectedProps extends StateProps, DispatchProps {}
 
 const mapStateToProps = (state: State): IntermediateStateProps => {
     const route = crossSliceSelectors.getDeleteRouteDialogRoute(state);

@@ -9,7 +9,7 @@ interface Props {
     isVisible: boolean;
     onCancel: () => void;
     onSave: (route: Route) => void;
-};
+}
 
 const RouteDialog = ({isVisible = false, onCancel, onSave}: Props) => {
     const [smsTextCode, setSmsTextCode] = useState("");

@@ -10,7 +10,7 @@ const touchableBackground = (Platform.OS === "android") ? TouchableNativeFeedbac
 
 interface Props extends ConnectedProps {
     style?: StyleProp<ViewStyle>;
-};
+}
 
 const RouteRow = ({
     style,
