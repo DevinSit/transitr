@@ -14,3 +14,9 @@ decrypt-release-key:
 
 build-release-apk:
 	bash ./scripts/build_release_apk.sh
+
+generate-build-container:
+	bash ./scripts/generate_build_container.sh
+
+push-build-container:
+	bash ./scripts/push_build_container.sh
