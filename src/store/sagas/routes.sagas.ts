@@ -11,7 +11,7 @@ function* createRoute({payload}: {payload: Route, type: string}) {
     const {busStop, busNumber, smsTextCode} = route;
 
     const allRoutes = yield select(crossSliceSelectors.getRoutes);
-    const routeExists = !!allRoutes.filter((x) => (
+    const routeExists = !!allRoutes.filter((x: Route) => (
         (x.smsTextCode === smsTextCode) || (x.busStop === busStop && x.busNumber === busNumber)
     )).length;
 

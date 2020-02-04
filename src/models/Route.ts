@@ -79,7 +79,7 @@ class Route {
             route.mergeWithArrivalTimeSets(arrivalTimeSetsById);
 
             return route;
-        }
+        };
     }
 
     static parseTextCode(smsTextCode: string = ""): {busNumber: string, busStop: string} {
@@ -114,7 +114,9 @@ class Route {
             ) {
                 busNumber = secondSplit + " " + thirdSplit;
                 busStop = firstSplit;
-            } else if (LETTERS_ONLY.test(firstSplit) && LETTERS_ONLY.test(secondSplit) && NUMBERS_ONLY.test(thirdSplit)) {
+            } else if (
+                LETTERS_ONLY.test(firstSplit) && LETTERS_ONLY.test(secondSplit) && NUMBERS_ONLY.test(thirdSplit)
+            ) {
                 busNumber = thirdSplit;
                 busStop = firstSplit + " " + secondSplit;
             }
@@ -137,7 +139,7 @@ class Route {
             busNumber,
             busStop
         };
-    };
+    }
 
     static sortRoutes(routes: Array<Route>, method: SortMethod): Array<Route> {
         // Need to create a copy of the routes so that a different array instance is returned.
@@ -147,11 +149,11 @@ class Route {
 
         switch (method) {
             case SortMethod.SORT_BUS_NUMBER:
-                return sortedRoutes.sort((route1, route2) => route1.getBusNumberInt() - route2.getBusNumberInt());
+                return sortedRoutes.sort((a, b) => a.getBusNumberInt() - b.getBusNumberInt());
             case SortMethod.SORT_BUS_STOP:
-                return sortedRoutes.sort((route1, route2) => route1.busStop.localeCompare(route2.busStop));
+                return sortedRoutes.sort((a, b) => a.busStop.localeCompare(b.busStop));
             case SortMethod.SORT_LAST_UPDATED:
-                return sortedRoutes.sort((route1, route2) => route2.lastUpdated.getTime() - route1.lastUpdated.getTime());
+                return sortedRoutes.sort((a, b) => b.lastUpdated.getTime() - a.lastUpdated.getTime());
             default:
                 return sortedRoutes;
         }

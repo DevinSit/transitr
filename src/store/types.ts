@@ -14,7 +14,10 @@ export type ObjectPayloadAction = BaseAction & {payload: PayloadObject};
 export type ArrayPayloadAction = BaseAction & {payload: Array<PayloadObject>};
 export type IdPayloadAction = BaseAction & {payload: string};
 
-export type CaseReducer = (state: State, action: ObjectPayloadAction & ArrayPayloadAction & IdPayloadAction) => void | PayloadObject;
+export type CaseReducer = (
+    state: State, action: ObjectPayloadAction & ArrayPayloadAction & IdPayloadAction
+) => void | PayloadObject;
+
 export type ReducerFactory = {[key: string]: CaseReducer};
 
 export type Selector = (state: State) => any;

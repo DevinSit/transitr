@@ -1,0 +1,38 @@
+steps:
+    - id: "Install dependencies"
+      name: "gcr.io/cloud-builders/npm"
+      args: ["install"]
+
+    - id: "Run linting"
+      name: "gcr.io/cloud-builders/npm"
+      args: ["run", "lint"]
+
+    - id: "Run typescript checker"
+      name: "gcr.io/cloud-builders/npm"
+      args: ["run", "tsc"]
+
+    - id: "Decrypt keystore"
+      name: "gcr.io/cloud-builders/gcloud"
+      entrypoint: "bash"
+      args: 
+        - -c
+        - |
+          bash ./scripts/decrypt_signing_key.sh
+
+    - id: "Build APK"
+      name: "gcr.io/$PROJECT_ID/transitr-build-container"
+      entrypoint: "bash"
+      args: 
+        - -c
+        - |
+          bash ./scripts/build_release_apk.sh
+
+    - id: "Save APK to bucket"
+      name: "gcr.io/cloud-builders/gsutil"
+      entrypoint: "bash"
+      args: 
+        - -c
+        - |
+          gsutil cp ./android/app/build/outputs/apk/release/app-release.apk gs://transitr-release-apks/transitr-${COMMIT_SHA}-$(date +%Y-%m-%d-%H-%M-%S).apk
+
+timeout: 1800s

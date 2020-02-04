@@ -53,7 +53,7 @@ class ArrivalTimeSet {
             arrivalTimeSet.mergeWithArrivalTimes(arrivalTimesById);
 
             return arrivalTimeSet;
-        }
+        };
     }
 
     static createFromRawTimes(times: Array<string>): ArrivalTimeSet {

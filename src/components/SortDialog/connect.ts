@@ -12,7 +12,7 @@ interface DispatchProps {
     onClose: () => void;
 }
 
-export interface ConnectedProps extends StateProps, DispatchProps {};
+export interface ConnectedProps extends StateProps, DispatchProps {}
 
 const mapStateToProps = (state: State): StateProps => ({
     value: appSlice.selectors.getSortMethod(state),

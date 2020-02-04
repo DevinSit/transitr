@@ -1,5 +1,4 @@
 import {combineReducers} from "redux";
-import mounts from "./mountpoints";
 import * as slices from "./slices";
 
 const createRootReducer = () => {

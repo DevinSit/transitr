@@ -43,7 +43,6 @@ yarn-error.log
 # BUCK
 buck-out/
 \.buckd/
-*.keystore
 !debug.keystore
 
 # fastlane
@@ -62,3 +61,7 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# Keystore files that absolutely must be kept out of the repo, since they are used for signing the release APKs.
+*.keystore
+keystore.properties
