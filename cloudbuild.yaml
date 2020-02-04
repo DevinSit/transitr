@@ -20,7 +20,7 @@ steps:
           bash ./scripts/decrypt_signing_key.sh
 
     - id: "Build APK"
-      name: "gcr.io/$PROJECT_ID/react-native-build-container"
+      name: "gcr.io/$PROJECT_ID/transitr-build-container"
       entrypoint: "bash"
       args: 
         - -c

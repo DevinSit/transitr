@@ -4,5 +4,5 @@ set -x
 
 cd android
 chmod +x ./gradlew
-./gradlew assembleRelease
+./gradlew --no-daemon assembleRelease
 cd ..
