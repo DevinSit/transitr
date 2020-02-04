@@ -8,3 +8,9 @@ start-emulator:
 
 run-android:
 	npm run android
+
+decrypt-release-key:
+	bash ./scripts/decrypt_signing_key.sh
+
+build-release-apk:
+	bash ./scripts/build_release_apk.sh
