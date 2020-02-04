@@ -149,6 +149,20 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+
+        release {
+            def releasePropsFile = rootProject.file("keystore.properties")
+
+            if (releasePropsFile.exists()) {
+                def releaseProps = new Properties()
+                releaseProps.load(new FileInputStream(releasePropsFile))
+
+                storeFile file(releaseProps["TRANSITR_STORE_FILE"])
+                storePassword releaseProps["TRANSITR_STORE_PASSWORD"]
+                keyAlias releaseProps["TRANSITR_KEY_ALIAS"]
+                keyPassword releaseProps["TRANSITR_KEY_PASSWORD"]
+            }
+        }
     }
     buildTypes {
         debug {
@@ -157,7 +171,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
