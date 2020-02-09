@@ -1,4 +1,4 @@
-# Dank Meme Classifier
+# Transitr
 
 > An SMS-based OC Transpo app for finding out when the next bus is coming -- without cellular data!
 
